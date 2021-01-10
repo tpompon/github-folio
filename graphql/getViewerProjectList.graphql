@@ -1,0 +1,32 @@
+query GetViewerProjectList($after: String) {
+  viewer {
+    id
+    repositories(after: $after, first: 5, isFork: false, affiliations: [OWNER], orderBy: {field: UPDATED_AT, direction: DESC}) {
+      edges {
+        node {
+          id
+          name
+          stargazerCount
+          description
+          updatedAt
+          languages(first: 5, orderBy: {field: SIZE, direction: DESC}) {
+            totalSize
+            totalCount
+            edges {
+              node {
+                name
+                id
+                color
+              }
+              size
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}

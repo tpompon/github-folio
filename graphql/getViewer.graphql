@@ -1,0 +1,30 @@
+query GetViewer {
+  viewer {
+    id
+    login
+    bio
+    name
+    url
+    avatarUrl
+    status {
+      emoji
+      message
+    }
+    repositories(first: 100, affiliations: [OWNER]) {
+      nodes {
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          totalSize
+          totalCount
+          edges {
+            node {
+              name
+              id
+              color
+            }
+            size
+          }
+        }
+      }
+    }
+  }
+}

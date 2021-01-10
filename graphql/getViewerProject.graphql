@@ -1,0 +1,30 @@
+query GetViewerProject($projectName: String!) {
+  viewer {
+    id
+    repository(name: $projectName) {
+      id
+      name
+      url
+      stargazerCount
+      description
+      updatedAt
+      languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+        totalSize
+        totalCount
+        edges {
+          node {
+            name
+            id
+            color
+          }
+          size
+        }
+      }
+      object(expression: "master:README.md") {
+        ... on Blob {
+          text
+        }
+      }
+    }
+  }
+}
