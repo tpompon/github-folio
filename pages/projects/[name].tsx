@@ -15,8 +15,6 @@ const ProjectByNamePage = () => {
   const router = useRouter();
   const { name: projectName } = router.query;
 
-  if (typeof projectName !== 'string') return <div>An error occured</div>;
-
   let repository;
   let updatedAt;
   let topLanguage;
@@ -26,7 +24,9 @@ const ProjectByNamePage = () => {
     GetViewerProjectVariables
   >(queryGetViewerProject, {
     variables: {
-      projectName
+      projectName: typeof projectName === 'string'
+        ? projectName
+        : ''
     }
   });
 
@@ -43,13 +43,15 @@ const ProjectByNamePage = () => {
       topLanguage = repository.languages.edges[0].node;
   } else return null;
 
+  const back = () => router.push('/projects');
+
   return (
     <PageTransition>
       <div className="mb-8">
         <div className="flex flex-row flex-wrap items-center mb-2 gap-x-8 gap-y-2">
           <div className="text-2xl lg:text-3xl font-bold flex flex-row flex-wrap items-center">
             <span
-              onClick={() => router.push('/projects')}
+              onClick={back}
               className="hover:underline cursor-pointer mr-2"
             >
               My projects
@@ -88,7 +90,7 @@ const ProjectByNamePage = () => {
       </a>
 
       <div className="w-full border border-gray-400 p-10 rounded-lg">
-        {repository.object.text ? (
+        {repository.object?.text ? (
           <Readme text={repository.object.text} />
         ) : (
           <div>No readme found.</div>
@@ -102,12 +104,12 @@ const Skeleton = () => (
   <div className="h-full">
     <div className="flex flex-row flex-wrap items-center gap-x-8 gap-y-2 mb-8">
       <div className="bg-gray-100 rounded-lg w-72 p-4 animate-pulse" />
-      <div className="bg-gray-100 rounded-lg w-24 p-4 animate-pulse w-" />
+      <div className="bg-gray-100 rounded-lg w-24 p-4 animate-pulse" />
     </div>
 
     <div className="bg-gray-100 rounded-lg w-full h-20 animate-pulse my-12" />
 
-    <div className="bg-gray-100 rounded-lg h-5/6 animate-pulse h-" />
+    <div className="bg-gray-100 rounded-lg h-5/6 animate-pulse" />
   </div>
 );
 
