@@ -32,8 +32,11 @@ const ProjectByNamePage = () => {
   if (loading) return <Skeleton />;
 
   if (data) {
-    if (!data.viewer?.repository) return <div>An error occured</div>;
-
+    if (!data.viewer?.repository) {
+      router.push('/projects');
+      return null;
+    }
+    
     repository = data.viewer.repository;
     updatedAt = formatDate(repository.updatedAt);
 
