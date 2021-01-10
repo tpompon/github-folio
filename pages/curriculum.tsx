@@ -7,7 +7,12 @@ const CurriculumPage = () => {
     <PageTransition>
       <h2 className="text-3xl font-bold mb-10">My experiences</h2>
 
-      <CurriculumCard
+      <p>
+        There is currently no card added on your experiences pages.<br />
+        Try to add a Curriculum card now.
+      </p>
+
+      {/* <CurriculumCard
         company="Studio Zerance"
         image="images/curriculum/studio_zerance.png"
         description="Full-Stack Developer (Shopify applications)"
@@ -29,7 +34,7 @@ const CurriculumPage = () => {
         image="images/curriculum/startup4kids.png"
         description="Educational supervisor"
         url="https://startupforkids.fr/"
-      />
+      /> */}
     </PageTransition>
   )
 }
