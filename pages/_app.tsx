@@ -17,7 +17,7 @@ import MetadataHelmet from 'components/MetadataHelmet';
  
 const NavigationPages = [
   '/projects',
-  // '/curriculum'
+  '/curriculum'
 ]
 
 const App = ({ Component, pageProps }: AppProps) => {

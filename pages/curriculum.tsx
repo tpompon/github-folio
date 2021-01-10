@@ -1,4 +1,4 @@
-import CurriculumCard from 'components/CurriculumCard';
+// import CurriculumCard from 'components/CurriculumCard';
 import PageTransition from 'components/PageTransition';
 
 const CurriculumPage = () => {
