@@ -24,9 +24,7 @@ const ProjectByNamePage = () => {
     GetViewerProjectVariables
   >(queryGetViewerProject, {
     variables: {
-      projectName: typeof projectName === 'string'
-        ? projectName
-        : ''
+      projectName: typeof projectName === 'string' ? projectName : ''
     }
   });
 

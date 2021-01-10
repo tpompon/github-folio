@@ -28,7 +28,9 @@ export const getTotalLanguagesSize = (languages: Array<RepositoryLanguage>) => {
   return totalSize;
 };
 
-export const addPercentageToLanguages = (languages: Array<RepositoryLanguage>) => {
+export const addPercentageToLanguages = (
+  languages: Array<RepositoryLanguage>
+) => {
   let totalSize = getTotalLanguagesSize(languages);
 
   languages.map(language => {
@@ -39,12 +41,12 @@ export const addPercentageToLanguages = (languages: Array<RepositoryLanguage>) =
   return languages;
 };
 
-export const parseAllRepositoriesLanguages = (repositories) => {
+export const parseAllRepositoriesLanguages = repositories => {
   let languages: Array<RepositoryLanguage> = [];
 
-  repositories.nodes.forEach((repository) => {
+  repositories.nodes.forEach(repository => {
     repository.languages.edges.forEach(
-      ({ node: language, size }: { node, size }) => {
+      ({ node: language, size }: { node; size }) => {
         const lIndex = languages.findIndex(l => l.name === language.name);
 
         const lObject = {
@@ -70,8 +72,8 @@ export const parseAllRepositoriesLanguages = (repositories) => {
  */
 
 type RepositoryLanguage = {
-  name: string,
-  color: string,
-  size: number,
-  percentage?: any
-} 
+  name: string;
+  color: string;
+  size: number;
+  percentage?: any;
+};

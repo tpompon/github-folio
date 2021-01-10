@@ -3,14 +3,20 @@ import { useQuery } from '@apollo/client';
 import queryGetViewerProjectList from 'graphql/getViewerProjectList.graphql';
 import ProjectCard from 'components/ProjectCard';
 import PageTransition from 'components/PageTransition';
-import { GetViewerProjectList, GetViewerProjectListVariables } from 'graphql/@types/GetViewerProjectList';
+import {
+  GetViewerProjectList,
+  GetViewerProjectListVariables
+} from 'graphql/@types/GetViewerProjectList';
 
 const ProjectsListPage = () => {
   const router = useRouter();
 
   let viewer;
 
-  const { data, loading, error, fetchMore } = useQuery<GetViewerProjectList, GetViewerProjectListVariables>(queryGetViewerProjectList, {
+  const { data, loading, error, fetchMore } = useQuery<
+    GetViewerProjectList,
+    GetViewerProjectListVariables
+  >(queryGetViewerProjectList, {
     variables: {
       after: null
     }
@@ -20,8 +26,7 @@ const ProjectsListPage = () => {
   if (loading) return <Skeleton />;
 
   if (data) {
-    if (!data.viewer)
-      return <div>An error occured</div>;
+    if (!data.viewer) return <div>An error occured</div>;
 
     viewer = data.viewer;
   } else return null;
@@ -31,22 +36,19 @@ const ProjectsListPage = () => {
       <h2 className="text-3xl font-bold mb-10">My projects</h2>
 
       <div className="flex flex-wrap justify-between flex-auto">
-        {viewer.repositories?.edges?.map(
-          (edge) => {
+        {viewer.repositories?.edges?.map(edge => {
+          const repository = edge?.node;
+          if (!repository) return null;
 
-            const repository = edge?.node;
-            if (!repository) return null;
-
-            return (
-              <ProjectCard
-                key={repository.id}
-                repository={repository}
-                onClick={() => router.push(`/projects/${repository.name}`)}
-                className="w-full"
-              />
-            )
-          }
-        )}
+          return (
+            <ProjectCard
+              key={repository.id}
+              repository={repository}
+              onClick={() => router.push(`/projects/${repository.name}`)}
+              className="w-full"
+            />
+          );
+        })}
 
         {viewer.repositories?.pageInfo?.hasNextPage && (
           <button
