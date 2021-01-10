@@ -20,7 +20,7 @@ export const formatDate = (date: string, withoutDay?: boolean) => {
   return dateObj.toLocaleDateString('fr-FR', options);
 };
 
-export const getTotalLanguagesSize = (languages: any) => {
+export const getTotalLanguagesSize = (languages: Array<RepositoryLanguage>) => {
   let totalSize = 0;
 
   for (const name in languages) totalSize += languages[name].size;
@@ -28,7 +28,7 @@ export const getTotalLanguagesSize = (languages: any) => {
   return totalSize;
 };
 
-export const addPercentageToLanguages = (languages: Array<any>) => {
+export const addPercentageToLanguages = (languages: Array<RepositoryLanguage>) => {
   let totalSize = getTotalLanguagesSize(languages);
 
   languages.map(language => {
@@ -39,12 +39,12 @@ export const addPercentageToLanguages = (languages: Array<any>) => {
   return languages;
 };
 
-export const parseAllRepositoriesLanguages = (repositories: any) => {
-  let languages: Array<any> = [];
+export const parseAllRepositoriesLanguages = (repositories) => {
+  let languages: Array<RepositoryLanguage> = [];
 
-  repositories.nodes.forEach((repository: any) => {
+  repositories.nodes.forEach((repository) => {
     repository.languages.edges.forEach(
-      ({ node: language, size }: { node: any; size: any }) => {
+      ({ node: language, size }: { node, size }) => {
         const lIndex = languages.findIndex(l => l.name === language.name);
 
         const lObject = {
@@ -63,3 +63,15 @@ export const parseAllRepositoriesLanguages = (repositories: any) => {
     (a, b) => b.percentage - a.percentage
   );
 };
+
+/**
+ * @types and @interfaces
+ * for utils functions
+ */
+
+type RepositoryLanguage = {
+  name: string,
+  color: string,
+  size: number,
+  percentage?: any
+} 
